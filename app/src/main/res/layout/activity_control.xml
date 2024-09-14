@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,32 +8,114 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="16dp">
 
-
-        <Button
-            android:id="@+id/btnFan"
+        <TextView
+            android:id="@+id/textControl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="환풍기"
-            tools:layout_editor_absoluteX="162dp"
-            tools:layout_editor_absoluteY="201dp" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="sans-serif-black"
+            android:text="CONTROL"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
 
-        <Button
-            android:id="@+id/btnWater"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="물 공급"
-            tools:layout_editor_absoluteX="176dp"
-            tools:layout_editor_absoluteY="391dp" />
 
-        <Button
-            android:id="@+id/btnLed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LED"
-            tools:layout_editor_absoluteX="219dp"
-            tools:layout_editor_absoluteY="113dp" />
+        <FrameLayout
+            android:id="@+id/FrameFan"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/fill_border" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="FAN"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/fanControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="40dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/FrameWater"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/fill_border" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="WATER"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/waterControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="40dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/FrameLed"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/fill_border" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="LED"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/ledControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="40dp"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

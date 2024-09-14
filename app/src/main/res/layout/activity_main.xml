@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,27 +8,175 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="189dp">
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/control_btn"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/fill_border"
-            android:text="제어" />
-
-        <Button
-            android:id="@+id/monitoring_btn"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="50dp"
-            android:background="@drawable/fill_border"
-            android:text="모니터링" />
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/text_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="온도"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="온도"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/text_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="습도"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="습도"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/text_moisture"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="수분"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/moisture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="수분"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="40dp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_rectangle">
+
+            <TextView
+                android:id="@+id/text_ventilator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="환풍기"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <Switch
+                android:id="@+id/switch_ventilator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="5dp"
+                android:switchMinWidth="80dp"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_rectangle">
+
+            <TextView
+                android:id="@+id/text_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="물 공급"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <Switch
+                android:id="@+id/switch_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="5dp"
+                android:switchMinWidth="80dp"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_rectangle">
+
+            <TextView
+                android:id="@+id/text_led"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="LED"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <Switch
+                android:id="@+id/switch_led"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="5dp"
+                android:switchMinWidth="80dp"/>
+        </FrameLayout>
 
     </LinearLayout>
 
