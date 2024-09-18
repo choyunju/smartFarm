@@ -18,7 +18,7 @@ class ControlActivity : AppCompatActivity() {
     private val binding get() = mbinding!!
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothSocket: BluetoothSocket? = null
-    private val deviceAddress = "00:11:22:33:AA:BB" //연결할 Arduino의 Bluetooth 주소
+    private val deviceAddress = "연결할 아두이노 주소" //연결할 Arduino의 Bluetooth 주소
     private val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //HC-05의 UUID
 
     override fun onCreate(savedInstanceState: Bundle?) {
