@@ -1,28 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 그림자 레이어 -->
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width = "1dp" android:color = "#76B135"/>
-            <corners
-                android:bottomRightRadius="20dp"
-                android:bottomLeftRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"/>
+            <corners android:radius="20dp" />
+            <solid android:color="#5ED36E" /> <!-- 반투명 검정색 (그림자) -->
         </shape>
     </item>
 
-    <item
-        android:bottom="1dp"
-        android:left="1dp"
-        android:right="1dp"
-        android:top="1dp">
+    <!-- 둥근 모서리 사각형 레이어 -->
+    <item android:right="4dp" android:bottom="4dp"> <!-- 그림자의 오프셋 (그림자가 오른쪽 아래로 이동) -->
         <shape android:shape="rectangle">
-            <solid android:color="#76B135"/>
-            <corners
-                android:bottomRightRadius="20dp"
-                android:bottomLeftRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"/>
+            <corners android:radius="20dp" />
+            <solid android:color="#FFFFFF" />
         </shape>
     </item>
+
 </layer-list>

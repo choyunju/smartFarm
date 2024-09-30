@@ -1,183 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:backgroundTint="#B3B3B3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Monitoring"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"/>
+
+    <FrameLayout
+        android:layout_width="330dp"
+        android:layout_height="150dp"
+        android:background="@drawable/border"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_regular"
+                android:textAlignment="center"
+                android:text="온도"
+                android:textSize="15dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_regular"
+                android:textAlignment="center"
+                android:text="습도"
+                android:textSize="15dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="수분"
+                android:textSize="15dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:textAlignment="center"
+                android:text="온도"
+                android:textSize="25dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:textAlignment="center"
+                android:text="습도"
+                android:textSize="25dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="수분"
+                android:textSize="25dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Control"
+        android:fontFamily="@font/pretendard_bold"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp" />
+
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/text_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="온도"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="온도"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="40dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/text_humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="습도"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="습도"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="40dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/text_moisture"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="수분"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/moisture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:text="수분"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="40dp" />
-        </LinearLayout>
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
 
         <FrameLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_rectangle">
-
-            <TextView
-                android:id="@+id/text_ventilator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"
-                android:text="환풍기"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
+            android:id="@+id/fanFrame"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:background="@drawable/border">
 
             <Switch
-                android:id="@+id/switch_ventilator"
+                android:id="@+id/fanSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="5dp"
-                android:switchMinWidth="80dp"/>
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:switchMinWidth="30dp"
+                android:track="@drawable/switch_track_selector"
+                android:thumb="@drawable/switch_thumb"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/icon_fan"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="환풍기"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_rectangle">
-
-            <TextView
-                android:id="@+id/text_water"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"
-                android:text="물 공급"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
+            android:id="@+id/waterFrame"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:background="@drawable/border"
+            android:layout_marginLeft="30dp">
 
             <Switch
-                android:id="@+id/switch_water"
+                android:id="@+id/waterSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="5dp"
-                android:switchMinWidth="80dp"/>
-        </FrameLayout>
+                android:switchMinWidth="30dp"
+                android:track="@drawable/switch_track_selector"
+                android:thumb="@drawable/switch_thumb"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"/>
 
-        <FrameLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_rectangle">
-
-            <TextView
-                android:id="@+id/text_led"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:text="LED"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
+                android:layout_marginLeft="20dp">
 
-            <Switch
-                android:id="@+id/switch_led"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="5dp"
-                android:switchMinWidth="80dp"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/icon_water"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수분"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
         </FrameLayout>
-
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <FrameLayout
+            android:id="@+id/ledFrame"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:background="@drawable/border">
+
+            <Switch
+                android:id="@+id/ledSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchMinWidth="30dp"
+                android:track="@drawable/switch_track_selector"
+                android:thumb="@drawable/switch_thumb"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/icon_led"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LED"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
