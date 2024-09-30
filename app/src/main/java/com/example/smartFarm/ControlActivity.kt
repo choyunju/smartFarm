@@ -22,7 +22,6 @@ class ControlActivity : AppCompatActivity() {
     private val binding get() = mbinding!!
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothSocket: BluetoothSocket? = null
-    //    private val deviceAddress = "00:11:22:33:AA:BB" //연결할 Arduino의 Bluetooth 주소
     private var outputStream: OutputStream? = null
     private var inputStream: InputStream? = null
     private val deviceName = "HC-06"
@@ -40,7 +39,6 @@ class ControlActivity : AppCompatActivity() {
         } else {
             request()
         }
-        connectBluetooth()
         Log.d("controlActivity","process")
         setupClickListener()
     }
@@ -74,9 +72,7 @@ class ControlActivity : AppCompatActivity() {
             )
         }
     }
-
-
-
+    
     private fun initBluetooth() {
         Log.d("initbluetooth", "yes")
         if(bluetoothAdapter == null) {
@@ -84,6 +80,7 @@ class ControlActivity : AppCompatActivity() {
         } else if(!bluetoothAdapter!!.isEnabled){
             Log.d("bluetooth", "please enable Bluetooth")
         }
+        connectBluetooth()
         return
     }
 
@@ -111,13 +108,11 @@ class ControlActivity : AppCompatActivity() {
                         Log.d("bluetooth", "failed")
                     }
                 }
-
             }
             Log.d("bluetooth connect", "success")
         } catch(e: IOException) {
             Log.d("bluetooth", "fail")
         }
-
     }
 
     override fun onRequestPermissionsResult(
