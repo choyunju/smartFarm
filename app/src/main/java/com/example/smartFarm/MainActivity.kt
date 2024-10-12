@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.smartFarm.databinding.ActivityMainBinding
 import java.io.IOException
 import java.io.InputStream
@@ -23,6 +26,10 @@ import java.util.UUID
 class MainActivity : AppCompatActivity() {
     private var mbinding: ActivityMainBinding? = null
     private val binding get() = mbinding!!
+    private lateinit var monitoringViewModel: MonitoringViewModel
+    private val handler = Handler()
+    private val buffer = ByteArray(1024)
+    private var bufferPosition = 0
 
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothSocket: BluetoothSocket? = null
@@ -35,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         mbinding = ActivityMainBinding.inflate(layoutInflater)
+        monitoringViewModel = ViewModelProvider(this)[MonitoringViewModel::class.java]
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -49,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             request()
         }
 
-        Log.d("MainActivity","process")
+        setupMonitoringListener()
         setupControlListener()
     }
 
@@ -114,18 +122,20 @@ class MainActivity : AppCompatActivity() {
                         bluetoothSocket?.connect()
                         outputStream = bluetoothSocket?.outputStream
                         inputStream = bluetoothSocket?.inputStream
+                        Thread(DataReceiver()).start()
                         Log.d("bluetooth", "connected to HC-06")
                     }    catch (e: IOException) {
                         Log.d("bluetooth", "failed")
                     }
+                    monitoringViewModel.temperature.observe(this, Observer { newTemperature ->
+                        binding.textTemp.text = newTemperature
+                    })
                 }
-
             }
             Log.d("bluetooth connect", "success")
         } catch(e: IOException) {
             Log.d("bluetooth", "fail")
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -139,6 +149,38 @@ class MainActivity : AppCompatActivity() {
                 initBluetooth()
             } else {
                 Log.d("Bluetooth","permissions are required")
+            }
+        }
+    }
+
+    inner class DataReceiver: Runnable {
+        override fun run() {
+            while(true) {
+                try {
+                    val bytesAvailable = inputStream!!.available()
+                    if(bytesAvailable > 0) {
+                        val bytes = ByteArray(bytesAvailable)
+                        inputStream!!.read(bytes)
+
+                        for(i in 0 until bytesAvailable) {
+                            val b = bytes[i]
+                            if(b == '\n'.toByte()) {
+                                val receiveData = String(buffer, 0, bufferPosition)
+                                bufferPosition = 0
+
+                                //LiveData를 통해 데이터 업데이트
+                                handler.post {
+                                    monitoringViewModel.updateTemperature(receiveData.trim())
+                                }
+                            } else {
+                                buffer[bufferPosition++] = b
+                            }
+                        }
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    break
+                }
             }
         }
     }
@@ -187,12 +229,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupMonitoringListener() {
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         try {
             bluetoothSocket?.close()
         } catch (e: IOException) {
-            Log.d("socket close", "fail")
+            e.printStackTrace()
         }
     }
 }
