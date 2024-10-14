@@ -188,11 +188,11 @@ class MainActivity : AppCompatActivity() {
         binding.fanSwitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
                 binding.fanFrame.setBackgroundResource(R.drawable.fill_border)
-                sendData("0")
+                sendData("F")
             }
             else {
                 binding.fanFrame.setBackgroundResource(R.drawable.border)
-                sendData("1")
+                sendData("G")
             }
         }
 
