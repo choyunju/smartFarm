@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
             request()
         }
 
-        setupMonitoringListener()
         setupControlListener()
     }
 
@@ -229,9 +228,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupMonitoringListener() {
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()
