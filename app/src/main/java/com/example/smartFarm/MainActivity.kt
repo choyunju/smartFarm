@@ -126,8 +126,10 @@ class MainActivity : AppCompatActivity() {
                     }    catch (e: IOException) {
                         Log.d("bluetooth", "failed")
                     }
+
+                    //LivaData를 관찰하고 temperature가 변경되면 UI 업데이트
                     monitoringViewModel.temperature.observe(this, Observer { newTemperature ->
-                        binding.textTemp.text = newTemperature
+                        binding.textTemp.text = "$newTemperature°C"
                     })
                 }
             }
@@ -152,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //데이터를 수신하고 온도 데이터만 추출하여 LivaData에 업데이트하는 Thread
     inner class DataReceiver: Runnable {
         override fun run() {
             while(true) {
@@ -167,9 +170,13 @@ class MainActivity : AppCompatActivity() {
                                 val receiveData = String(buffer, 0, bufferPosition)
                                 bufferPosition = 0
 
+                                //수신된 데이터를 파싱하여 온도 추출
+                                val temperature = parseTemperature(receiveData)
+
                                 //LiveData를 통해 데이터 업데이트
                                 handler.post {
-                                    monitoringViewModel.updateTemperature(receiveData.trim())
+//                                    monitoringViewModel.updateTemperature(receiveData.trim())
+                                    monitoringViewModel.updateTemperature(temperature)
                                 }
                             } else {
                                 buffer[bufferPosition++] = b
@@ -180,6 +187,17 @@ class MainActivity : AppCompatActivity() {
                     e.printStackTrace()
                     break
                 }
+            }
+        }
+
+        //문자열에서 "T:" 뒤에 있는 온도 값을 추출하는 함수
+        private fun parseTemperature(data: String): String {
+            val tempStartIndex = data.indexOf("T:") + 2
+            val tempEndIndex = data.indexOf("C", tempStartIndex)
+            return if (tempStartIndex != -1 && tempEndIndex != -1) {
+                data.substring(tempStartIndex, tempEndIndex).trim()
+            } else {
+                "N/A"
             }
         }
     }
