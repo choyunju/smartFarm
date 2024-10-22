@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private val deviceName = "HC-06"
     private val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //HC-06의 UUID
 
+    private lateinit var sensorMap: MutableMap<String, String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+
         //Bluetooth 권한 체크
         if (checkPermissions()) {
             initBluetooth()
@@ -127,9 +130,15 @@ class MainActivity : AppCompatActivity() {
                         Log.d("bluetooth", "failed")
                     }
 
-                    //LivaData를 관찰하고 temperature가 변경되면 UI 업데이트
+                    //LivaData를 관찰
                     monitoringViewModel.temperature.observe(this, Observer { newTemperature ->
-                        binding.textTemp.text = "$newTemperature°C"
+                        binding.Temperature.text = "$newTemperature°C"
+                    })
+                    monitoringViewModel.humidity.observe(this, Observer { newHumidity ->
+                        binding.Humidity.text = "$newHumidity%"
+                    })
+                    monitoringViewModel.moisture.observe(this, Observer { newMoisture ->
+                        binding.Moisture.text = "$newMoisture%"
                     })
                 }
             }
@@ -170,13 +179,11 @@ class MainActivity : AppCompatActivity() {
                                 val receiveData = String(buffer, 0, bufferPosition)
                                 bufferPosition = 0
 
-                                //수신된 데이터를 파싱하여 온도 추출
-                                val temperature = parseTemperature(receiveData)
+                                val sensorValue = parseSensor(receiveData)
 
-                                //LiveData를 통해 데이터 업데이트
+                                //LiveData를 통해 센서값 업데이트
                                 handler.post {
-//                                    monitoringViewModel.updateTemperature(receiveData.trim())
-                                    monitoringViewModel.updateTemperature(temperature)
+                                    monitoringViewModel.updateSenSorData(sensorValue)
                                 }
                             } else {
                                 buffer[bufferPosition++] = b
@@ -190,15 +197,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //문자열에서 "T:" 뒤에 있는 온도 값을 추출하는 함수
-        private fun parseTemperature(data: String): String {
+        //습도, 온도, 수분 값을 추출
+        private fun parseSensor(data: String): Map<String, String> {
+            val humidityStartIndex = data.indexOf("H:") + 2
+            val humidityEndIndex = data.indexOf("%", humidityStartIndex)
             val tempStartIndex = data.indexOf("T:") + 2
             val tempEndIndex = data.indexOf("C", tempStartIndex)
-            return if (tempStartIndex != -1 && tempEndIndex != -1) {
-                data.substring(tempStartIndex, tempEndIndex).trim()
+            val moistureStartIndex = data.indexOf("S:") + 2
+            val moistureEndIndex = data.indexOf("%", moistureStartIndex)
+
+            if(humidityStartIndex != -1 && humidityEndIndex != -1) {
+                sensorMap = mutableMapOf("Humidity" to data.substring(humidityStartIndex, humidityEndIndex).trim())
             } else {
                 "N/A"
             }
+            if(tempStartIndex != -1 && tempEndIndex != -1) {
+                sensorMap["Temperature"] = data.substring(tempStartIndex, tempEndIndex).trim()
+            } else {
+                "N/A"
+            }
+            if(moistureStartIndex != -1 && moistureEndIndex != -1) {
+                sensorMap["Moisture"] = data.substring(moistureStartIndex, moistureEndIndex).trim()
+            } else {
+                "N/A"
+            }
+
+            return sensorMap
         }
     }
 
@@ -239,13 +263,11 @@ class MainActivity : AppCompatActivity() {
         if(bluetoothSocket!= null && outputStream != null) {
             try {
                 outputStream?.write(data.toByteArray())
-                Log.d("data send", "success $data")
             } catch (e: IOException) {
                 Log.d("data send", "fail")
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

@@ -71,34 +71,36 @@
             android:layout_marginTop="15dp">
 
             <TextView
-                android:id="@+id/textTemp"
+                android:id="@+id/Temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pretendard_bold"
                 android:textAlignment="center"
                 android:text="온도"
-                android:textSize="25dp"
+                android:textSize="17dp"
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/Humidity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pretendard_bold"
                 android:textAlignment="center"
                 android:text="습도"
-                android:textSize="25dp"
+                android:textSize="17dp"
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/Moisture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_bold"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:text="수분"
-                android:textSize="25dp"
+                android:textSize="17dp"
                 android:textColor="@color/black" />
         </LinearLayout>
     </FrameLayout>

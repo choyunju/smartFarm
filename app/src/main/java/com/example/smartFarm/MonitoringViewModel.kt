@@ -25,4 +25,13 @@ class MonitoringViewModel: ViewModel() {
     fun updateMoisture(newMoisture: String) {
         _moisture.value = newMoisture
     }
+
+    fun updateSenSorData(sensorValue: Map<String, String>) {
+        val newHumidity = sensorValue["Humidity"]
+        val newTemperature = sensorValue["Temperature"]
+        val newMoisture = sensorValue["Moisture"]
+        _humidity.value = newHumidity
+        _temperature.value = newTemperature
+        _moisture.value = newMoisture
+    }
 }
