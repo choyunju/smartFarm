@@ -4,6 +4,7 @@ import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity() {
     private val deviceName = "HC-06"
     private val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //HC-06의 UUID
 
+    private var fanAuto = false
+    private var fanStartTime: Long = 0
+    private var pumpAuto = false
+    private var pumpStartTime: Long = 0
+
+    var autoDatas = ArrayList<AutoData>()
+
     private lateinit var sensorMap: MutableMap<String, String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +69,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupControlListener()
+        autoDatas = arrayListOf<AutoData>()
+        binding.notifications.setOnClickListener {
+            val intent = Intent(this, AutoActivity::class.java)
+            intent.putParcelableArrayListExtra("autoNotifications", autoDatas)
+            startActivity(intent)
+        }
     }
 
     private fun checkPermissions(): Boolean{
@@ -178,6 +192,25 @@ class MainActivity : AppCompatActivity() {
                             if(b == '\n'.toByte()) {
                                 val receiveData = String(buffer, 0, bufferPosition)
                                 bufferPosition = 0
+
+                                if(receiveData == "Fan: ON (Automatic)" && !fanAuto) {
+                                    fanAuto = true
+                                    fanStartTime = System.currentTimeMillis()
+                                } else if(receiveData == "Fan: OFF (Automatic)" && fanAuto) {
+                                    fanAuto = false
+                                    val fanEndTime = System.currentTimeMillis()
+                                    val duration = (fanEndTime - fanStartTime) / 1000 // 초 단위로 변환
+                                    autoDatas.add(AutoData("Fan", duration.toString()+"초 동안 켜져 있었습니다!"))
+                                }
+                                if(receiveData == "Water Pump: ON (Automatic)" && !pumpAuto) {
+                                    pumpAuto = true
+                                    pumpStartTime = System.currentTimeMillis()
+                                } else if(receiveData == "Water Pump: OFF (Automatic)" && pumpAuto) {
+                                    pumpAuto = false
+                                    val pumpEndTime = System.currentTimeMillis()
+                                    val duration = (pumpEndTime - pumpStartTime) / 1000
+                                    autoDatas.add(AutoData("Water Pump", duration.toString()+"초 동안 켜져 있었습니다!"))
+                                }
 
                                 val sensorValue = parseSensor(receiveData)
 
