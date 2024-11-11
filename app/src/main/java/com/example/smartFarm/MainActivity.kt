@@ -192,20 +192,20 @@ class MainActivity : AppCompatActivity() {
                             if(b == '\n'.toByte()) {
                                 val receiveData = String(buffer, 0, bufferPosition)
                                 bufferPosition = 0
-
-                                if(receiveData == "Fan: ON (Automatic)" && !fanAuto) {
+                                Log.d("receiveData=", receiveData)
+                                if(receiveData.contains("Fan: ON (Automatic)") && !fanAuto) {
                                     fanAuto = true
                                     fanStartTime = System.currentTimeMillis()
-                                } else if(receiveData == "Fan: OFF (Automatic)" && fanAuto) {
+                                } else if(receiveData.contains("Fan: OFF (Automatic)") && fanAuto) {
                                     fanAuto = false
                                     val fanEndTime = System.currentTimeMillis()
                                     val duration = (fanEndTime - fanStartTime) / 1000 // 초 단위로 변환
                                     autoDatas.add(AutoData("Fan", duration.toString()+"초 동안 켜져 있었습니다!"))
                                 }
-                                if(receiveData == "Water Pump: ON (Automatic)" && !pumpAuto) {
+                                if(receiveData.contains("Water Pump: ON (Automatic)") && !pumpAuto) {
                                     pumpAuto = true
                                     pumpStartTime = System.currentTimeMillis()
-                                } else if(receiveData == "Water Pump: OFF (Automatic)" && pumpAuto) {
+                                } else if(receiveData.contains("Water Pump: OFF (Automatic)") && pumpAuto) {
                                     pumpAuto = false
                                     val pumpEndTime = System.currentTimeMillis()
                                     val duration = (pumpEndTime - pumpStartTime) / 1000
